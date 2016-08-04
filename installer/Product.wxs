@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="RVM for Windows" Language="1033" Version="!(bind.FileVersion.RvmExe)" Manufacturer="Eagerestwolf, LLC" UpgradeCode="0dde2c29-3f04-45c8-8cef-5866e5609dba">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perUser" />
+
+		<UIRef Id="WixUI_Minimal" />
+		<WixVariable Id="WixUILicenseRtf" Value="License.txt" />
+		<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+
+		<PropertyRef Id="WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED"/>
+		<Condition Message='This setup requires the .NET Framework 4.0 or later installed. The Installer will now install .NET 4.6.1'>
+			<![CDATA[Installed OR WIX_IS_NETFRAMEWORK_40_OR_LATER_INSTALLED]]>
+		</Condition>
+
+		<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+
+		<Upgrade Id="1b7beae1-0d6c-41ce-8878-1db394acaa05">
+			<UpgradeVersion Minimum="0.0.1" Maximum="99.0.0.0" Property="PREVIOUSVERSIONSINSTALLED" IncludeMinimum="yes" IncludeMaximum="no" />
+		</Upgrade>
+
+		<InstallExecuteSequence>
+			<RemoveExistingProducts Before="InstallInitialize" />
+		</InstallExecuteSequence>
+
+		<MediaTemplate />
+
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="AppDataFolder">
+				<Directory Id="INSTALLFOLDER" Name="rvm" />
+			</Directory>
+		</Directory>
+
+		<DirectoryRef Id="TARGETDIR">
+			<Component Id="rvm.exe" Guid="">
+				<File Id="RvmExe" Source="$(var.src.TargetPath)" KeyPath="yes" Checksum="yes" />
+			</Component>
+			<Component Id="config.json" Guid="">
+				<File Id="ConfigJson" Source="$(var.src.ProjectDir)\config.json" KeyPath="yes" Checksum="yes" />
+			</Component>
+			<Component Id="7zr.exe" Guid="">
+				<File Id="7zrExe" Source="$(var.src.ProjectDir)\7zr.exe" KeyPath="yes" Checksum="yes" />
+			</Component>
+			<Component Id="PATH">
+				<Environment Id="PathVar" Name="PATH" Value="[INSTALLDIR]" Permanent="yes" Part="last" Action="set" System="no" />
+			</Component>
+		</DirectoryRef>
+
+    <Icon Id="RvmIcon" SourceFile="$(var.src.ProjectDir)\rvm.ico" />
+	</Product>
+</Wix>
