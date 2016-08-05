@@ -2,7 +2,7 @@
   "currentVersion": null,
   "currentArch": null,
 
-  //User config values
+  "_comment": "USER CONFIG HERE",
   "defaultArch": null,
   "RUBY_HOME": null
 }

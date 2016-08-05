@@ -42,8 +42,8 @@ namespace rvm
                     else
                         rubyArch = "Ruby Architecture: NOT INSTALLED";
 
-                    Console.WriteLine(osArch);
-                    Console.WriteLine(rubyArch);
+                    Console.WriteLine("\t" + osArch);
+                    Console.WriteLine("\t" + rubyArch);
                     break;
                 case "install":
                     if(args.Count() == 3)

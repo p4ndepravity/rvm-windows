@@ -1,0 +1,15 @@
+{
+	"plugins":
+	{
+		"remark-lint":
+		{
+			"fenced-code-flag":
+			{
+				"allowEmpty": true
+			},
+			"list-item-spacing": false,
+			"list-item-indent": false,
+			"list-item-bullet-indent": false
+		}
+	}
+}
