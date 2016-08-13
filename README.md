@@ -211,3 +211,8 @@ Your mom. No really, I actually downloaded the gemstone graphic from
 [.flaticon]: http://www.flaticon.com
 [.freepik]: http://www.freepik.com
 [.cc-30-by]: http://creativecommons.org/licenses/by/3.0
+
+## Support on Beerpay
+Hey dude! Help me out for a couple of :beers:!
+
+[![Beerpay](https://beerpay.io/eagerestwolf/rvm-windows/badge.svg?style=beer-square)](https://beerpay.io/eagerestwolf/rvm-windows)  [![Beerpay](https://beerpay.io/eagerestwolf/rvm-windows/make-wish.svg?style=flat-square)](https://beerpay.io/eagerestwolf/rvm-windows?focus=wish)
