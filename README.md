@@ -1,5 +1,7 @@
 # RVM For Windows
 
+[![Join the chat at https://gitter.im/eagerestwolf/rvm-windows](https://badges.gitter.im/eagerestwolf/rvm-windows.svg)](https://gitter.im/eagerestwolf/rvm-windows?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This repository contains the source code for my implementation of the Ruby
 Version Manager for Windows. The application itself is written in C#, and
 targets the .NET Framework Version 4.5.1. That said, it should work on all
