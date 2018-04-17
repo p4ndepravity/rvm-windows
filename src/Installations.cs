@@ -24,7 +24,7 @@ namespace rvm
 
         public static void Create(string version, string arch)
         {
-            if (arch != "x64" || arch != "i386")
+            if (!(arch == "x64" || arch == "i386"))
             {
                 Console.Error.WriteLine("INVALID ARGUMENT FORMAT ERROR: If used, arch should be set to x64 for 64-bit or i386 for 32-bit.");
                 Environment.Exit((int)Exit.FAILURE_INVALID_ARG_FORMAT);
