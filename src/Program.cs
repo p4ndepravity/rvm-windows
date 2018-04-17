@@ -29,10 +29,17 @@ namespace rvm
             if (args.Count() < 2)
             {
                 PrintHelp();
-                Environment.Exit(0);
+                args = new string[] { null, null, null, null };
+                Console.WriteLine("enter an rvm command");
+                args[1] = Console.ReadLine();
+                Console.WriteLine("enter a version");
+                args[2] = Console.ReadLine();
+                Console.WriteLine("enter an arch");
+                args[3] = Console.ReadLine();
+                //Environment.Exit(0);
             }
 
-            switch(args[1])
+            switch (args[1])
             {
                 case "arch":
                     string osArch = Environment.Is64BitOperatingSystem ? "Windows Architecture: 64-bit" : "Windows Architecture: 32-bit";
@@ -46,7 +53,7 @@ namespace rvm
                     Console.WriteLine("\t" + rubyArch);
                     break;
                 case "install":
-                    if(args.Count() == 3)
+                    if (args.Count() == 3)
                         Installations.Create(args[2]);
                     else if (Environment.Is64BitOperatingSystem && args.Count() == 4)
                         Installations.Create(args[2], args[3]);
@@ -120,7 +127,7 @@ namespace rvm
                 .AddJsonFile(Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\config.json", true)
                 .Build();
 
-            RvmHome = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
+            RvmHome = Directory.GetCurrentDirectory();
             Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         }
 

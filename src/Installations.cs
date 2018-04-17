@@ -24,18 +24,18 @@ namespace rvm
 
         public static void Create(string version, string arch)
         {
-            if (arch != "x64" || arch != "i386")
+            if (!(arch == "x64" || arch == "i386"))
             {
                 Console.Error.WriteLine("INVALID ARGUMENT FORMAT ERROR: If used, arch should be set to x64 for 64-bit or i386 for 32-bit.");
                 Environment.Exit((int)Exit.FAILURE_INVALID_ARG_FORMAT);
             }
 
             string remoteFile = "http://dl.bintray.com/oneclick/rubyinstaller/ruby-" + version + "-" + arch + "-mingw32.7z";
-            string localFile = Program.RvmHome + "\\ruby-" + version + "-" + arch + "-mingw32";
-
+            string localFileName = $"\\ruby-{version}-{arch}-mingw32";
+            string localFilePath = Program.RvmHome + localFileName;
             Console.WriteLine("Downloading Ruby version " + version + "...");
-            DownloadAndVerify(remoteFile, localFile);
-            Unpack(localFile, version, arch);
+            DownloadAndVerify(remoteFile, localFilePath);
+            Unpack(localFileName, version, arch);
             LinkInstall(version, arch);
         }
 
@@ -114,27 +114,14 @@ namespace rvm
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback);
 
             // Download Ruby and the associated MD5 file for verification
-            client.DownloadFile(url, filename + ".7z");
-            client.DownloadFile(url + ".md5", filename + ".7z.md5");
-
-            // Define 2 byte arrays
-            // One will hold the MD5 of the downloaded file
-            // The other will hold the MD5 sum to check against
-            byte[] fileMD5 = null;
-            byte[] checkMD5 = File.ReadAllBytes(filename + ".7z.md5");
-
-            Console.WriteLine("Verifying download...");
-            using (var md5 = MD5.Create())
+            try
             {
-                using (var stream = File.OpenRead(filename + ".7z"))
-                {
-                    fileMD5 = md5.ComputeHash(stream);
-                }
+                client.DownloadFile(url, filename + ".7z");
             }
-
-            if (fileMD5 != checkMD5)
+            catch (Exception ex)
             {
-                Console.Error.WriteLine("FILE DOWNLOAD ERROR: There was an error downloading Ruby...");
+                Console.WriteLine($"FILE DOWNLOAD ERROR: There was an error downloading Ruby...");
+                Console.WriteLine($"{ex}");
                 Environment.Exit((int)Exit.FAILURE_DOWNLOAD_FAILURE);
             }
         }
@@ -159,7 +146,7 @@ namespace rvm
             process.Start();
             process.WaitForExit();
 
-            FileSystem.RenameDirectory(filename, Program.RvmHome + "\\" + version + "-" + arch);
+            FileSystem.RenameDirectory(Program.RvmHome + filename, version + "-" + arch);
         }
         
         private static void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
